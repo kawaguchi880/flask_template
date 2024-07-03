@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('main.static',filename='css/style.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>ページが見つかりません - 404</title>
+</head>
+
+<body class="bg-secondary">
+    <div class="container px-0 vh-100 justify-content-center survey-main">
+        <div class="row text-align-center">
+            <div class="col">
+                <h1 class="survey-title text-center my-4">
+                    404 - ページが見つかりません
+                </h1>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <h4 class="text-center">申し訳ありませんが、お探しのページは見つかりませんでした。</h4>
+        </div>
+        <div class="row my-4">
+            <div class="text-center d-grid col-4 mx-auto">
+                <a href="{{ url_for('main.index') }}" class="btn">戻る</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

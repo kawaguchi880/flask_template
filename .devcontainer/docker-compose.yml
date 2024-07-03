@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    user: vscode
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_ENV=${FLASK_ENV}
+      - DATABASE_URL=${DATABASE_URL}
+    command: /bin/bash -c "chmod +x .devcontainer/wait-for-db.sh && .devcontainer/wait-for-db.sh  && gunicorn -b 0.0.0.0:8000 apps.app:create_app\\(\\'main\\'\\)"
+    networks:
+      - app-network
+
+  db:
+    build:
+      context: ..
+      dockerfile: .devcontainer/mysql/Dockerfile
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}z
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+    driver: bridge
